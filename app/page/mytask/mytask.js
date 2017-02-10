@@ -25,21 +25,45 @@ module.exports = {
 
  	validateInput: function(inputVal) {
 
- 		$('.error-info').text('');
- 		$('.warn-info').text('');
-
-
 		if( isNaN(inputVal) ){
 
-			$('.error-info').text("输入非法，清楚输入合法数字");
+			this.showValidateInfo('error' , "输入非法，清楚输入合法数字");	
 
 		}else if (!inputVal){
-			$('.warn-info').text("输入为空，清楚输入合法数字");
-		}
 
+			this.showValidateInfo('warn' , "输入为空，清楚输入合法数字");
+
+		}
 		if(inputVal > 10 ){
-			
-		}
 
+		}
+ 	},
+
+ 	showValidateInfo: function( type, info ){
+
+ 		var errorInfo = $('.error-info');
+ 		var warnInfo  = $('.warn-info');
+ 		var inputWrapper = $('.input-wrapper');
+ 		var warnWrapper  = $('.warn-wrapper');
+ 		var errorWrapper = $('.error-wrapper');
+
+ 		errorInfo.text('');
+ 		warnInfo.text('');
+ 		inputWrapper.addClass('has-error');
+
+ 		if(type && type === 'warn'){
+ 			
+ 			errorWrapper.css('display' ,'none');
+ 			warnWrapper.css('display' ,'block');
+
+			warnInfo.text(info);
+
+ 		}else if (type && type === 'error'){
+
+ 			warnWrapper.css('display'  ,'none');
+ 			errorWrapper.css('display' ,'block');
+
+ 			errorInfo.text(info);
+ 		}
  	}
 };
