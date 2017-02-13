@@ -2,6 +2,12 @@ h1, h2, h3, h4, h5, h6, p, blockquote {
    margin: 0;
    padding: 0;
 }
+html, body, .root {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+}
 body {
    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
    font-size: 13px;
@@ -120,12 +126,12 @@ sup {
 * {
    -webkit-print-color-adjust: exact;
 }
-@media screen and (min-width: 914px) {
+/*@media screen and (min-width: 914px) {
    body {
       width: 854px;
       margin:10px auto;
    }
-}
+}*/
 @media print {
    body,code,pre code,h1,h2,h3,h4,h5,h6 {
       color: black;
@@ -133,4 +139,9 @@ sup {
    table, pre {
       page-break-inside: avoid;
    }
+}
+.page-sidebar-wrapper {
+   height: 100%;
+   position: fixed;
+   left: 0;
 }
