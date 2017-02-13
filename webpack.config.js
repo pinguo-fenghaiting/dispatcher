@@ -45,10 +45,8 @@ module.exports = {
 	resolve : {
 	    alias: {
 	        Page : path.resolve(__dirname, 'app/page/'),
-	        
 	        Widget : path.resolve(__dirname , 'app/widget'),
-	        
-	        
+	        Config : path.resolve(__dirname , 'app/config'),
 	    }
 	},
 	

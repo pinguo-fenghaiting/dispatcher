@@ -31,8 +31,10 @@ module.exports = {
 				loader: "style-loader!css-loader!less-loader?strictMath&noIeCompat"
 			},
 			
-			
-			
+			{ 
+				test: /\.(png|jpg)$/,    
+				loader: "url-loader?limit=10000" 
+			},
 			
 			{ 
 				test: /\.js$/, 

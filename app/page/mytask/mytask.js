@@ -1,15 +1,24 @@
+
 var template = require('html-loader!./mytask.html');
+var Alert  = require('Widget/alert/alert');
+var dataModel = require('Widget/dataModel/dataModel');
+var serverConfig = require('../../config/serverConfig');
+
 require('./mytask.less');
 
 module.exports = {
 
+	taskId : '',
+
  	render: function () {
- 		
+
  		$('.page-content-wrapper').html(template);
  		this.bind();
+
  	},
 
  	bind: function () {
+
  		var me = this;
  		
  		$(".download-btn").on('click' ,function(){
@@ -18,7 +27,25 @@ module.exports = {
  			imgCount =  +imgCount;
 
  			//validate input value
- 			me.validateInput(imgCount);
+ 			if(me.validateInput(imgCount)){
+
+ 				var assginOpt = {
+	 			 	data : {
+	 			 	 	cnt   : imgCount,
+	 			 	},
+	 			 	method : 'POST',
+	 			 	type  : 'assgin',
+
+	 			 }
+
+ 			 	dataModel.getData(assginOpt).then(function(data){
+ 			 		
+ 			 		window.open(serverConfig['host'] + serverConfig['download'] + '?taskId=' + data.taskId)
+
+ 			 	});
+
+
+ 			}
 
  		})
  	},
@@ -27,43 +54,52 @@ module.exports = {
 
 		if( isNaN(inputVal) ){
 
-			this.showValidateInfo('error' , "输入非法，清楚输入合法数字");	
+			this.showValidateInfo( "输入非法，清楚输入合法数字");	
+			return false ; 
 
 		}else if (!inputVal){
 
-			this.showValidateInfo('warn' , "输入为空，清楚输入合法数字");
+			this.showValidateInfo( "输入为空，清楚输入合法数字");
+			return false ; 
 
+		}else{
+			this.showValidateInfo( "");
+			return true ; 
 		}
+
 		if(inputVal > 10 ){
 
+			var opt = {
+				type : 'warn',
+				info : '一次性下载不要超过10张' ,
+				wrapper : 'dispacther-page-mytask'
+			}
+
+			Alert.show(opt);
+			return false ; 
 		}
+
+		return true ; 
  	},
 
- 	showValidateInfo: function( type, info ){
+ 	showValidateInfo: function(info){
 
- 		var errorInfo = $('.error-info');
- 		var warnInfo  = $('.warn-info');
+		var warnInfo  = $('.warn-info');
  		var inputWrapper = $('.input-wrapper');
  		var warnWrapper  = $('.warn-wrapper');
- 		var errorWrapper = $('.error-wrapper');
 
- 		errorInfo.text('');
- 		warnInfo.text('');
- 		inputWrapper.addClass('has-error');
+ 		if(info){
 
- 		if(type && type === 'warn'){
- 			
- 			errorWrapper.css('display' ,'none');
- 			warnWrapper.css('display' ,'block');
+	 		warnInfo.text('');
+	 		inputWrapper.addClass('has-error');
 
+	 		warnWrapper.css('display' ,'block');
 			warnInfo.text(info);
+ 		}else{
 
- 		}else if (type && type === 'error'){
-
- 			warnWrapper.css('display'  ,'none');
- 			errorWrapper.css('display' ,'block');
-
- 			errorInfo.text(info);
+ 			warnWrapper.css('display' ,'none');
+ 			inputWrapper.removeClass('has-error');
  		}
+
  	}
 };
