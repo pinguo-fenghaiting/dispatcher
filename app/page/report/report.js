@@ -13,7 +13,7 @@ module.exports = {
  		// var maxPage=1;
  		var list = "<li class='active'><a href='javascript:;' value='1'>1</a></li>";
  		function getData(){
- 			$.getJSON("https://sampling-qa.camera360.com/backend/report/list?callback=?", function (response) {
+ 			$.getJSON("http://sampling.camera360.com/backend/report/list?callback=?", function (response) {
                 var date = response.data.items[0].date.toString();
                 var year = date.substr(0,4);
                 var month = date.substr(4,2);
@@ -31,7 +31,7 @@ module.exports = {
  			var endTime=$("#end_time").val();
  			var endTime = endTime.replace(/-/g,""); 
             var html = "";
-            $.getJSON("https://sampling-qa.camera360.com/backend/report/list?callback=?","sdate="+starTime+"&edate="+endTime, function (response) {
+            $.getJSON("http://sampling.camera360.com/backend/report/list?callback=?","sdate="+starTime+"&edate="+endTime, function (response) {
                 // var maxPage=response.maxPage;
                 
                 response.data.items.map(function(item,index){
