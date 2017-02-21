@@ -11,9 +11,16 @@ module.exports = {
  		
  		//分页
  		// var maxPage=1;
+        var link;
+        if(window.location.host == "sampling.camera360.com")
+        {
+            link="http://sampling.camera360.com/backend/report/list?callback=?";
+        }else{
+            link="https://sampling-qa.camera360.com/backend/report/list?callback=?"
+        }
  		var list = "<li class='active'><a href='javascript:;' value='1'>1</a></li>";
  		function getData(){
- 			$.getJSON("http://sampling.camera360.com/backend/report/list?callback=?", function (response) {
+ 			$.getJSON(link, function (response) {
                 var date = response.data.items[0].date.toString();
                 var year = date.substr(0,4);
                 var month = date.substr(4,2);
@@ -31,7 +38,7 @@ module.exports = {
  			var endTime=$("#end_time").val();
  			var endTime = endTime.replace(/-/g,""); 
             var html = "";
-            $.getJSON("http://sampling.camera360.com/backend/report/list?callback=?","sdate="+starTime+"&edate="+endTime, function (response) {
+            $.getJSON(link,"sdate="+starTime+"&edate="+endTime, function (response) {
                 // var maxPage=response.maxPage;
                 
                 response.data.items.map(function(item,index){
