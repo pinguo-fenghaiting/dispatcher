@@ -38,10 +38,34 @@ module.exports = {
 
 	 			 }
 
- 			 	dataModel.getData(assginOpt).then(function(data){
- 			 		
- 			 		window.open(serverConfig['host'] + serverConfig['download'] + '?taskId=' + data.taskId)
+ 			 	dataModel.getData(assginOpt).then(function(res){
 
+ 			 		if(res.status === 200){
+
+ 			 			window.open(serverConfig['host'] + serverConfig['download'] + '?taskId=' + res.data.taskId)
+ 			 			
+ 			 			if(res.data.isNew){
+
+ 			 				var opt = {
+								type : 'warn',
+								info : '本次认领任务为未完成任务' ,
+								wrapper : 'dispacther-page-mytask'
+							}
+
+							Alert.show(opt);
+ 			 			}
+
+ 			 		}else{
+
+ 			 			var opt = {
+							type : 'warn',
+							info : res.message ,
+							wrapper : 'dispacther-page-mytask'
+						}
+
+						Alert.show(opt);
+ 			 		}
+ 			 		
  			 	});
 
 
@@ -62,24 +86,19 @@ module.exports = {
 			this.showValidateInfo( "输入为空，清楚输入合法数字");
 			return false ; 
 
-		}else{
-			this.showValidateInfo( "");
-			return true ; 
-		}
-
-		if(inputVal > 10 ){
-
+		}else if(inputVal > 50 || inputVal < 1){
 			var opt = {
 				type : 'warn',
-				info : '一次性下载不要超过10张' ,
+				info : '一次性下载要大于1张，小于50张' ,
 				wrapper : 'dispacther-page-mytask'
 			}
 
 			Alert.show(opt);
 			return false ; 
+		}else{
+			this.showValidateInfo( "");
+			return true ; 
 		}
-
-		return true ; 
  	},
 
  	showValidateInfo: function(info){

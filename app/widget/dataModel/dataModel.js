@@ -13,6 +13,7 @@ module.exports = {
         var url = serverConf['host'] + serverConf[type];
 
         return new Promise(function(resolve, reject){
+
             var xhr = $.ajax({
             	
                 url: url,
@@ -24,10 +25,8 @@ module.exports = {
                 cache: false,
 
                 success: function (ret) {
-                    if(ret.status === 200){
-            
-                        resolve(ret.data);
-                    }
+                        
+                    resolve(ret);
                     
                 },
                 error: function () {

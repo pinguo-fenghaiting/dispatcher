@@ -1,6 +1,7 @@
 
 module.exports = {
-	host : 'http://sampling-qa.camera360.com',
+	host : '',
+	//host : 'http://sampling.camera360.com',
 	download : '/api/task/download',
 	commit   : '/api/task/commit',
 	login    : '/index/login',
