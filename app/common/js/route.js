@@ -35,6 +35,7 @@ module.exports = {
     getPath : function (){
 
         var hash  = location.hash.split("#")[1] || this.DEFUALT_PAGE;
+        hash = hash.split('?')[0];
         var pageParam  = hash.split('_');
         var dir   = pageParam.join('/'); 
         var page  = pageParam.pop();

@@ -5,7 +5,6 @@ var template = require('html-loader!./index.html');
 
 //widget 
 var header = require('Widget/header/header') ;
-var menu   = require('Widget/menu/menu') ;
 var cookie = require('Widget/cookie/cookie');
 
 //page 
@@ -15,20 +14,28 @@ module.exports = {
 
     render: function () {
 
-    	var username =  cookie.getCookie('username');
-    	
-    	if(username){
+		$('.root').html(template);
 
-    		$('.root').html(template);
+    	header.render();
+    	mytask.render();
 
-	    	header.render();
-	    	menu.render();
-	    	mytask.render();
-
-    	}else{
-    		location.hash = "#login";
+    	window.onscroll = function () {
+    		if (window.scrollY > 0) {
+    			$('.page-header').css({
+    				background: '#efefef'
+    			});
+    			$('.header-title').css({
+    				color: '#565353'
+    			});
+    		} else {
+    			$('.page-header').css({
+    				background: 'transparent'
+    			});
+    			$('.header-title').css({
+    				color: '#fff'
+    			});
+    		}
     	}
-
     	
     } 
 }

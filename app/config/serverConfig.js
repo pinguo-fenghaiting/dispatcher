@@ -6,6 +6,6 @@ module.exports = {
 	commit   : '/api/task/commit',
 	login    : '/index/login',
 	logout   : '/index/logout',
-	assgin    : '/api/task/assign',
+	assgin   : '/api/task/assign',
 
 }
